@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ivory-50: #FDFBF7;
+  --color-ivory-100: #FAF7F2;
+  --color-ivory-200: #F4EFE6;
+  --color-ivory-300: #EBE3D5;
+  --color-ivory-400: #DDD2C0;
+  --color-ivory-500: #C8B9A2;
+
+  --color-forest-50: #F0F5F2;
+  --color-forest-100: #DEECE4;
+  --color-forest-200: #BDDCCB;
+  --color-forest-700: #163E2B;
+  --color-forest-800: #0D2818;
+  --color-forest-900: #0A2315;
+  --color-forest-950: #05130B;
+
+  --color-lime-300: #BEF264;
+  --color-lime-400: #A3E635;
+  --color-lime-500: #84CC16;
+  --color-lime-600: #65A30D;
+
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-sans: "Plus Jakarta Sans", Inter, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", Menlo, monospace;
+}
+
+body {
+  background-color: #FAF7F2;
+  color: #0A2315;
+  font-family: 'Plus Jakarta Sans', Inter, system-ui, sans-serif;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(13, 40, 24, 0.05);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(13, 40, 24, 0.2);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(13, 40, 24, 0.35);
+}
+
+/* React Flow styling custom overrides */
+.react-flow__node {
+  border-radius: 1rem;
+}
+.react-flow__handle {
+  width: 10px;
+  height: 10px;
+  background: #84CC16 !important;
+  border: 2px solid #0D2818 !important;
+}
+.react-flow__edge-path {
+  stroke: #0D2818 !important;
+  stroke-width: 2 !important;
+}
