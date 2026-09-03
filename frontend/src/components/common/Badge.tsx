@@ -23,15 +23,15 @@ export const Badge: React.FC<BadgeProps> = ({
   };
 
   const variantMap = {
-    forest: 'bg-[#0D2818] text-[#FAF7F2]',
-    lime: 'bg-[#84CC16] text-[#0D2818] font-bold',
-    neutral: 'bg-[#0D2818]/5 text-[#0D2818] border border-[#0D2818]/15',
-    high: 'bg-rose-100 text-rose-800 border border-rose-300 font-semibold',
-    medium: 'bg-amber-100 text-amber-800 border border-amber-300 font-semibold',
-    low: 'bg-sky-100 text-sky-800 border border-sky-300 font-semibold',
-    success: 'bg-emerald-100 text-emerald-800 border border-emerald-300 font-semibold',
-    warning: 'bg-amber-100 text-amber-800 border border-amber-300 font-semibold',
-    danger: 'bg-rose-100 text-rose-800 border border-rose-300 font-semibold',
+    forest: 'bg-zinc-900 text-white',
+    lime: 'bg-indigo-50 text-indigo-700 border border-indigo-200 font-semibold',
+    neutral: 'bg-zinc-100 text-zinc-800 border border-zinc-200',
+    high: 'bg-rose-50 text-rose-700 border border-rose-200 font-semibold',
+    medium: 'bg-amber-50 text-amber-700 border border-amber-200 font-semibold',
+    low: 'bg-sky-50 text-sky-700 border border-sky-200 font-semibold',
+    success: 'bg-emerald-50 text-emerald-700 border border-emerald-200 font-semibold',
+    warning: 'bg-amber-50 text-amber-700 border border-amber-200 font-semibold',
+    danger: 'bg-rose-50 text-rose-700 border border-rose-200 font-semibold',
   };
 
   return (

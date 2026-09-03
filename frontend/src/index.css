@@ -1,35 +1,105 @@
+@import "./styles/fonts.css";
+@import "./styles/theme.css";
 @import "tailwindcss";
 
+:root {
+  --background: 0 0% 100%;
+  --foreground: 0 0% 0%;
+
+  --primary: 0 0% 0%;
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 0 0% 96%;
+  --secondary-foreground: 0 0% 9%;
+
+  --muted: 0 0% 96%;
+  --muted-foreground: 0 0% 43.5%;
+
+  --accent: 239 84% 67%;
+  --accent-foreground: 0 0% 100%;
+
+  --border: 0 0% 90%;
+  --ring: 0 0% 0%;
+
+  --radius: 0.5rem;
+
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  --shadow-dashboard:
+    0 25px 80px -12px rgba(0, 0, 0, 0.08),
+    0 0 0 1px rgba(0, 0, 0, 0.06);
+}
+
 @theme {
-  --color-ivory-50: #FDFBF7;
-  --color-ivory-100: #FAF7F2;
-  --color-ivory-200: #F4EFE6;
-  --color-ivory-300: #EBE3D5;
-  --color-ivory-400: #DDD2C0;
-  --color-ivory-500: #C8B9A2;
-
-  --color-forest-50: #F0F5F2;
-  --color-forest-100: #DEECE4;
-  --color-forest-200: #BDDCCB;
-  --color-forest-700: #163E2B;
-  --color-forest-800: #0D2818;
-  --color-forest-900: #0A2315;
-  --color-forest-950: #05130B;
-
-  --color-lime-300: #BEF264;
-  --color-lime-400: #A3E635;
-  --color-lime-500: #84CC16;
-  --color-lime-600: #65A30D;
-
-  --font-serif: "Playfair Display", Georgia, serif;
-  --font-sans: "Plus Jakarta Sans", Inter, system-ui, sans-serif;
+  --font-display: "Instrument Serif", Georgia, serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: "Instrument Serif", Georgia, serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: "JetBrains Mono", Menlo, monospace;
+
+  --color-background: #FFFFFF;
+  --color-foreground: #000000;
+  --color-primary: #000000;
+  --color-primary-foreground: #FFFFFF;
+  --color-secondary: #F5F5F5;
+  --color-secondary-foreground: #171717;
+  --color-muted: #F5F5F5;
+  --color-muted-foreground: #6F6F6F;
+  --color-border: #E5E7EB;
+  --color-ring: #000000;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 body {
-  background-color: #FAF7F2;
-  color: #0A2315;
-  font-family: 'Plus Jakarta Sans', Inter, system-ui, sans-serif;
+  background-color: #FFFFFF;
+  color: #000000;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Glassmorphic Utilities */
+.glass-card {
+  background-color: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 1rem;
+  box-shadow: 0 25px 80px -12px rgba(0, 0, 0, 0.08);
+}
+
+.dashboard-card {
+  border-radius: 1rem;
+  border: 1px solid hsl(0 0% 90%);
+  background-color: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 25px 80px -12px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.06);
+}
+
+.saas-input {
+  height: 2.75rem;
+  width: 100%;
+  border-radius: 0.5rem;
+  border: 1px solid #E5E7EB;
+  background-color: #FFFFFF;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-family: 'Inter', sans-serif;
+  color: #000000;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.saas-input:focus {
+  border-color: #000000;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
 }
 
 /* Custom Scrollbar */
@@ -38,27 +108,27 @@ body {
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: rgba(13, 40, 24, 0.05);
+  background: #F4F4F5;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(13, 40, 24, 0.2);
+  background: #D1D5DB;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(13, 40, 24, 0.35);
+  background: #9CA3AF;
 }
 
 /* React Flow styling custom overrides */
 .react-flow__node {
-  border-radius: 1rem;
+  border-radius: 0.75rem;
 }
 .react-flow__handle {
-  width: 10px;
-  height: 10px;
-  background: #84CC16 !important;
-  border: 2px solid #0D2818 !important;
+  width: 8px;
+  height: 8px;
+  background: #000000 !important;
+  border: 2px solid #ffffff !important;
 }
 .react-flow__edge-path {
-  stroke: #0D2818 !important;
+  stroke: #94A3B8 !important;
   stroke-width: 2 !important;
 }

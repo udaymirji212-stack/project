@@ -1,9 +1,6 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from '../components/common/Button';
-import { Card } from '../components/common/Card';
 import { Badge } from '../components/common/Badge';
-import { OrbitalWorkflowCanvas } from '../components/3d/OrbitalWorkflowCanvas';
 import {
   Sparkles,
   ArrowRight,
@@ -20,60 +17,147 @@ import {
 } from 'lucide-react';
 
 export const LandingPage: React.FC = () => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+
+    if (!video) return;
+
+    let animationFrameId: number;
+    let restartTimer: ReturnType<typeof setTimeout>;
+
+    const updateVideoOpacity = () => {
+      if (video.duration && Number.isFinite(video.duration)) {
+        const currentTime = video.currentTime;
+        const duration = video.duration;
+        const fadeDuration = 0.5;
+
+        if (currentTime <= fadeDuration) {
+          video.style.opacity = String(currentTime / fadeDuration);
+        } else if (currentTime >= duration - fadeDuration) {
+          video.style.opacity = String(
+            Math.max(0, (duration - currentTime) / fadeDuration)
+          );
+        } else {
+          video.style.opacity = "1";
+        }
+      }
+
+      animationFrameId = requestAnimationFrame(updateVideoOpacity);
+    };
+
+    const restartVideo = () => {
+      video.style.opacity = "0";
+
+      restartTimer = setTimeout(() => {
+        video.currentTime = 0;
+        video.play().catch(() => {
+          // Autoplay may be delayed by the browser.
+        });
+      }, 100);
+    };
+
+    video.addEventListener("ended", restartVideo);
+    animationFrameId = requestAnimationFrame(updateVideoOpacity);
+
+    video.play().catch(() => {
+      // Autoplay may be delayed by the browser.
+    });
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      clearTimeout(restartTimer);
+      video.removeEventListener("ended", restartVideo);
+    };
+  }, []);
+
   return (
-    <div className="space-y-24 pb-24 overflow-hidden">
-      {/* 1. HERO SECTION */}
-      <section className="relative pt-12 sm:pt-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div className="text-center space-y-6 max-w-4xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#0D2818] text-white border border-[#84CC16]/30 shadow-md">
-            <span className="w-2 h-2 rounded-full bg-[#84CC16] animate-pulse" />
-            <span className="text-xs font-mono tracking-widest uppercase text-[#84CC16] font-bold">
+    <div className="space-y-24 pb-24 bg-white text-black font-sans">
+      {/* 1. CINEMATIC HERO SECTION WITH LOOPING VIDEO */}
+      <section className="relative min-h-screen w-full overflow-hidden flex flex-col items-center justify-start">
+        {/* Background Video */}
+        <video
+          ref={videoRef}
+          autoPlay
+          muted
+          playsInline
+          preload="auto"
+          onEnded={() => undefined}
+          className="absolute inset-0 h-full w-full object-cover opacity-0 z-0"
+        >
+          <source
+            src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260319_015952_e1deeb12-8fb7-4071-a42a-60779fc64ab6.mp4"
+            type="video/mp4"
+          />
+        </video>
+
+        {/* Video Gradient Overlay for seamless blend and high contrast */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white via-white/50 to-white pointer-events-none z-0" />
+
+        {/* Hero Content */}
+        <div
+          className="relative z-10 flex flex-col items-center justify-center text-center px-6 pb-40 max-w-7xl mx-auto"
+          style={{ paddingTop: "calc(8rem - 75px)" }}
+        >
+          {/* Badge */}
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/70 border border-zinc-200/80 text-black shadow-xs backdrop-blur-md mb-8 animate-fade-rise">
+            <span className="w-2 h-2 rounded-full bg-black animate-pulse" />
+            <span className="text-xs font-sans tracking-wide uppercase text-[#6F6F6F] font-semibold">
               Production Architecture & Code Engine
             </span>
           </div>
 
-          <h1 className="text-5xl sm:text-7xl font-serif font-bold text-[#0D2818] tracking-tight leading-[1.08]">
+          {/* Headline */}
+          <h1
+            className="font-display font-normal text-5xl sm:text-7xl md:text-8xl max-w-7xl text-black animate-fade-rise"
+            style={{ lineHeight: 0.95, letterSpacing: "-2.46px" }}
+          >
             Transform requirements into{' '}
-            <span className="italic underline decoration-[#84CC16] decoration-wavy decoration-2">
+            <span className="italic font-serif text-[#6F6F6F]">
               production-ready
             </span>{' '}
             software.
           </h1>
 
-          <p className="text-lg sm:text-xl text-[#0D2818]/80 font-sans max-w-2xl mx-auto leading-relaxed">
+          {/* Description */}
+          <p className="font-body text-base sm:text-lg max-w-2xl mt-8 leading-relaxed text-[#6F6F6F] animate-fade-rise-delay">
             From raw business ideas to complete IEEE-830 specifications, micro-modular architecture, relational ER schemas, validated codebases, and tests in minutes.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+          {/* CTAs */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-rise-delay-2">
             <Link to="/register">
-              <Button size="lg" variant="accent" icon={<ArrowRight className="w-5 h-5" />}>
-                Start Project Now
-              </Button>
+              <button
+                type="button"
+                className="rounded-full px-14 py-5 text-base font-medium mt-12 bg-black text-white transition-transform duration-200 hover:scale-[1.03] cursor-pointer shadow-sm inline-flex items-center gap-2"
+              >
+                <span>Start Project Now</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
             </Link>
-            <a href="#workflow">
-              <Button size="lg" variant="outline">
+            <a href="#workflow" className="inline-block mt-12 sm:mt-12">
+              <button
+                type="button"
+                className="rounded-full px-8 py-5 text-base font-medium border border-zinc-200 bg-white/80 backdrop-blur-md text-black hover:bg-white transition-transform duration-200 hover:scale-[1.03] cursor-pointer shadow-xs"
+              >
                 Explore Full Workflow
-              </Button>
+              </button>
             </a>
           </div>
-        </div>
-
-        {/* Interactive 3D Orbital Hero Visual */}
-        <div className="mt-14 max-w-5xl mx-auto">
-          <OrbitalWorkflowCanvas />
         </div>
       </section>
 
       {/* 2. STEP-BY-STEP WORKFLOW */}
-      <section id="workflow" className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
+      <section id="workflow" className="px-6 md:px-12 lg:px-20 max-w-7xl mx-auto space-y-12">
         <div className="text-center space-y-3">
           <Badge variant="lime" size="md">
             8-STAGE PIPELINE
           </Badge>
-          <h2 className="text-4xl sm:text-5xl font-serif font-bold text-[#0D2818]">
+          <h2 className="text-4xl sm:text-5xl font-display text-black tracking-tight font-normal">
             The Requirement-to-Code Transformation
           </h2>
-          <p className="text-base text-[#0D2818]/70 max-w-2xl mx-auto">
+          <p className="text-base text-[#6F6F6F] max-w-2xl mx-auto font-body">
             Every step is connected to real domain logic, fully editable, and persisted in your relational database.
           </p>
         </div>
@@ -95,7 +179,7 @@ export const LandingPage: React.FC = () => {
             {
               step: '03',
               title: 'System Architecture',
-              desc: 'Interactive React Flow diagram and 3D spatial view of decoupled client-server micro-modules.',
+              desc: 'Interactive React Flow diagram and spatial view of decoupled client-server micro-modules.',
               icon: Layers,
             },
             {
@@ -129,35 +213,38 @@ export const LandingPage: React.FC = () => {
               icon: Download,
             },
           ].map((item) => (
-            <Card key={item.step} hover className="flex flex-col justify-between p-6">
+            <div
+              key={item.step}
+              className="bg-white/60 backdrop-blur-xl border border-white/50 rounded-2xl shadow-[0_25px_80px_-12px_rgba(0,0,0,0.08)] flex flex-col justify-between p-6 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"
+            >
               <div>
                 <div className="flex items-center justify-between mb-4">
-                  <span className="font-mono text-2xl font-bold text-[#84CC16] bg-[#0D2818] px-2.5 py-0.5 rounded-xl">
+                  <span className="font-mono text-2xl font-bold text-black bg-zinc-100 px-2.5 py-0.5 rounded-xl border border-zinc-200">
                     {item.step}
                   </span>
-                  <div className="p-2 rounded-xl bg-[#FAF7F2] text-[#0D2818] border border-[#0D2818]/10">
-                    <item.icon className="w-5 h-5 text-[#0D2818]" />
+                  <div className="p-2.5 rounded-xl bg-zinc-50 text-black border border-zinc-200/80">
+                    <item.icon className="w-5 h-5" />
                   </div>
                 </div>
-                <h3 className="font-serif font-bold text-lg text-[#0D2818] mb-2">{item.title}</h3>
-                <p className="text-xs text-[#0D2818]/70 leading-relaxed font-sans">{item.desc}</p>
+                <h3 className="font-display text-2xl font-normal text-black mb-2">{item.title}</h3>
+                <p className="text-xs text-[#6F6F6F] leading-relaxed font-body">{item.desc}</p>
               </div>
-            </Card>
+            </div>
           ))}
         </div>
       </section>
 
       {/* 3. PLATFORM FEATURES & ENTERPRISE POWER */}
-      <section id="features" className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto space-y-12">
-        <div className="bg-[#0D2818] text-white rounded-3xl p-8 sm:p-14 border border-[#84CC16]/20 shadow-2xl relative overflow-hidden">
+      <section id="features" className="px-6 md:px-12 lg:px-20 max-w-7xl mx-auto space-y-12">
+        <div className="bg-black text-white rounded-3xl p-8 sm:p-14 border border-zinc-800 shadow-xl relative overflow-hidden">
           <div className="max-w-3xl space-y-6 relative z-10">
-            <span className="text-xs font-mono uppercase tracking-widest text-[#84CC16] font-bold">
+            <span className="text-xs font-mono uppercase tracking-widest text-zinc-400 font-bold">
               Engineered for Real Engineering
             </span>
-            <h2 className="text-4xl sm:text-5xl font-serif font-bold leading-tight">
+            <h2 className="text-4xl sm:text-5xl font-display leading-tight text-white font-normal">
               Not a prototype. A complete software synthesis factory.
             </h2>
-            <p className="text-sm sm:text-base text-white/80 leading-relaxed">
+            <p className="text-sm sm:text-base text-zinc-300 leading-relaxed font-body">
               Every visible button triggers real application logic. Edit requirements on the fly, rearrange React Flow architecture nodes, write code inside Monaco Editor, run automated tests, and download cleanly packaged ZIP archives.
             </p>
 
@@ -165,13 +252,13 @@ export const LandingPage: React.FC = () => {
               {[
                 'JWT Access & Refresh Token Rotation',
                 'FastAPI Asynchronous REST Backend',
-                'React 18 + TypeScript + Tailwind CSS',
+                'React 19 + TypeScript + Tailwind CSS',
                 'SQLAlchemy 2.0 & PostgreSQL Relational DDL',
                 'OpenAI Compatible AI Service Engine',
                 'Sanitized Zero-Leak ZIP Archive Exporter',
               ].map((text, idx) => (
-                <div key={idx} className="flex items-center gap-2.5 text-xs font-mono text-emerald-300">
-                  <CheckCircle2 className="w-4 h-4 text-[#84CC16] shrink-0" />
+                <div key={idx} className="flex items-center gap-2.5 text-xs font-mono text-zinc-300">
+                  <CheckCircle2 className="w-4 h-4 text-white shrink-0" />
                   <span>{text}</span>
                 </div>
               ))}
@@ -181,55 +268,61 @@ export const LandingPage: React.FC = () => {
       </section>
 
       {/* 4. SECURITY & PRIVACY */}
-      <section id="security" className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <section id="security" className="px-6 md:px-12 lg:px-20 max-w-7xl mx-auto">
         <div className="text-center space-y-3 mb-10">
-          <Badge variant="forest" size="md">
+          <Badge variant="lime" size="md">
             SECURITY ASSURANCE
           </Badge>
-          <h2 className="text-3xl sm:text-4xl font-serif font-bold text-[#0D2818]">
+          <h2 className="text-3xl sm:text-4xl font-display text-black font-normal">
             Zero Leaks. Strict Ownership. Full Isolation.
           </h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Card className="p-6 space-y-3">
-            <Lock className="w-6 h-6 text-[#84CC16]" />
-            <h4 className="font-serif font-bold text-base text-[#0D2818]">Encrypted Credentials</h4>
-            <p className="text-xs text-[#0D2818]/70 leading-relaxed font-sans">
+          <div className="bg-white/60 backdrop-blur-xl border border-white/50 rounded-2xl shadow-[0_25px_80px_-12px_rgba(0,0,0,0.08)] p-6 space-y-3">
+            <Lock className="w-6 h-6 text-black" />
+            <h4 className="font-display text-2xl font-normal text-black">Encrypted Credentials</h4>
+            <p className="text-xs text-[#6F6F6F] leading-relaxed font-body">
               Passwords hashed with bcrypt/Argon2. Tokens signed with HS256 JWTs with automatic rotation.
             </p>
-          </Card>
-          <Card className="p-6 space-y-3">
-            <Shield className="w-6 h-6 text-[#84CC16]" />
-            <h4 className="font-serif font-bold text-base text-[#0D2818]">Strict Project Ownership</h4>
-            <p className="text-xs text-[#0D2818]/70 leading-relaxed font-sans">
+          </div>
+          <div className="bg-white/60 backdrop-blur-xl border border-white/50 rounded-2xl shadow-[0_25px_80px_-12px_rgba(0,0,0,0.08)] p-6 space-y-3">
+            <Shield className="w-6 h-6 text-black" />
+            <h4 className="font-display text-2xl font-normal text-black">Strict Project Ownership</h4>
+            <p className="text-xs text-[#6F6F6F] leading-relaxed font-body">
               Users have access only to their own workspaces, diagrams, codebases, and generated files.
             </p>
-          </Card>
-          <Card className="p-6 space-y-3">
-            <Download className="w-6 h-6 text-[#84CC16]" />
-            <h4 className="font-serif font-bold text-base text-[#0D2818]">Sanitized ZIP Exports</h4>
-            <p className="text-xs text-[#0D2818]/70 leading-relaxed font-sans">
+          </div>
+          <div className="bg-white/60 backdrop-blur-xl border border-white/50 rounded-2xl shadow-[0_25px_80px_-12px_rgba(0,0,0,0.08)] p-6 space-y-3">
+            <Download className="w-6 h-6 text-black" />
+            <h4 className="font-display text-2xl font-normal text-black">Sanitized ZIP Exports</h4>
+            <p className="text-xs text-[#6F6F6F] leading-relaxed font-body">
               ZIP archives strip real environment credentials and supply clean `.env.example` templates.
             </p>
-          </Card>
+          </div>
         </div>
       </section>
 
       {/* 5. CALL TO ACTION */}
-      <section className="px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto text-center space-y-6 pt-10">
-        <h2 className="text-4xl sm:text-5xl font-serif font-bold text-[#0D2818]">
+      <section className="px-6 md:px-12 lg:px-20 max-w-5xl mx-auto text-center space-y-6 pt-6">
+        <h2 className="text-4xl sm:text-5xl font-display text-black font-normal">
           Ready to build your next software project?
         </h2>
-        <p className="text-base text-[#0D2818]/70 max-w-xl mx-auto">
+        <p className="text-base text-[#6F6F6F] max-w-xl mx-auto font-body">
           Start with a business idea or problem statement and let the platform engineer the full software architecture.
         </p>
         <Link to="/register" className="inline-block">
-          <Button size="lg" variant="accent" icon={<Zap className="w-5 h-5" />}>
-            Create Free Account & Start
-          </Button>
+          <button
+            type="button"
+            className="rounded-full px-14 py-5 text-base font-medium bg-black text-white transition-transform duration-200 hover:scale-[1.03] cursor-pointer shadow-sm inline-flex items-center gap-2"
+          >
+            <Zap className="w-4 h-4" />
+            <span>Create Free Account & Start</span>
+          </button>
         </Link>
       </section>
     </div>
   );
 };
+
+export default LandingPage;

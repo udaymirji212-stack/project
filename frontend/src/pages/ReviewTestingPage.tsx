@@ -76,22 +76,22 @@ export const ReviewTestingPage: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 font-sans">
       {/* Top Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-3xl border border-[#0D2818]/10 shadow-sm">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white/90 backdrop-blur-md p-6 rounded-2xl border border-zinc-200 shadow-xs">
         <div>
           <div className="flex items-center gap-2">
             <Badge variant="lime" size="sm">
               QUALITY & VERIFICATION
             </Badge>
-            <span className="text-xs font-mono text-[#0D2818]/60">
+            <span className="text-xs font-sans text-zinc-400">
               Score: {review?.score || 94}/100 • {testRun?.passed_count || 0} Tests Passing
             </span>
           </div>
-          <h2 className="font-serif font-bold text-2xl text-[#0D2818] mt-1">
+          <h2 className="font-serif text-2xl text-zinc-900 mt-1">
             AI Code Review & Test Verification
           </h2>
-          <p className="text-xs text-[#0D2818]/70 font-sans mt-0.5">
+          <p className="text-xs text-zinc-500 font-sans mt-0.5">
             Static security vulnerability detection, code smell remediations, and automated test execution.
           </p>
         </div>
@@ -121,28 +121,30 @@ export const ReviewTestingPage: React.FC = () => {
       </div>
 
       {/* Tabs */}
-      <div className="flex items-center gap-2 text-xs font-mono">
+      <div className="flex items-center gap-2 text-xs font-sans">
         <button
+          type="button"
           onClick={() => setActiveTab('review')}
-          className={`px-4 py-2 rounded-full border transition-all flex items-center gap-2 ${
+          className={`px-4 py-2 rounded-full border transition-all flex items-center gap-2 cursor-pointer ${
             activeTab === 'review'
-              ? 'bg-[#0D2818] text-white border-[#0D2818] font-bold shadow-xs'
-              : 'bg-white text-[#0D2818]/70 border-[#0D2818]/15 hover:bg-[#FAF7F2]'
+              ? 'bg-zinc-900 text-white border-zinc-900 font-medium shadow-xs'
+              : 'bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-50'
           }`}
         >
-          <ShieldCheck className="w-3.5 h-3.5 text-[#84CC16]" />
+          <ShieldCheck className="w-3.5 h-3.5 text-indigo-400" />
           <span>Security & Quality Audit ({review?.issues?.length || 0})</span>
         </button>
 
         <button
+          type="button"
           onClick={() => setActiveTab('tests')}
-          className={`px-4 py-2 rounded-full border transition-all flex items-center gap-2 ${
+          className={`px-4 py-2 rounded-full border transition-all flex items-center gap-2 cursor-pointer ${
             activeTab === 'tests'
-              ? 'bg-[#0D2818] text-white border-[#0D2818] font-bold shadow-xs'
-              : 'bg-white text-[#0D2818]/70 border-[#0D2818]/15 hover:bg-[#FAF7F2]'
+              ? 'bg-zinc-900 text-white border-zinc-900 font-medium shadow-xs'
+              : 'bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-50'
           }`}
         >
-          <Play className="w-3.5 h-3.5 text-[#84CC16]" />
+          <Play className="w-3.5 h-3.5 text-indigo-400" />
           <span>Automated Pytest Suite ({testRun?.passed_count || 0} Passed)</span>
         </button>
       </div>
@@ -152,35 +154,35 @@ export const ReviewTestingPage: React.FC = () => {
         <div className="space-y-6">
           {/* Score Banner */}
           <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
-            <Card className="p-4 flex items-center gap-3">
-              <div className="p-3 rounded-2xl bg-[#0D2818] text-[#84CC16]">
+            <Card className="p-4 flex items-center gap-3 bg-white/90">
+              <div className="p-3 rounded-full bg-zinc-900 text-indigo-400">
                 <Award className="w-6 h-6" />
               </div>
               <div>
-                <span className="text-[10px] font-mono uppercase text-[#0D2818]/60 font-bold block">
+                <span className="text-[11px] font-sans uppercase text-zinc-400 font-medium block">
                   Quality Score
                 </span>
-                <span className="text-2xl font-serif font-bold text-[#0D2818]">
+                <span className="text-2xl font-serif text-zinc-900">
                   {review?.score || 94}/100
                 </span>
               </div>
             </Card>
 
-            <Card className="p-4 text-center">
-              <span className="text-[10px] font-mono uppercase text-[#0D2818]/60 font-bold">Total Issues</span>
-              <p className="text-2xl font-serif font-bold text-[#0D2818] mt-1">{review?.total_issues || 0}</p>
+            <Card className="p-4 text-center bg-white/90">
+              <span className="text-[11px] font-sans uppercase text-zinc-400 font-medium">Total Issues</span>
+              <p className="text-2xl font-serif text-zinc-900 mt-1">{review?.total_issues || 0}</p>
             </Card>
 
-            <Card className="p-4 text-center bg-amber-50/50 border-amber-300">
-              <span className="text-[10px] font-mono uppercase text-amber-800 font-bold">High/Critical</span>
-              <p className="text-2xl font-serif font-bold text-amber-800 mt-1">
+            <Card className="p-4 text-center bg-amber-50/50 border border-amber-200">
+              <span className="text-[11px] font-sans uppercase text-amber-800 font-medium">High/Critical</span>
+              <p className="text-2xl font-serif text-amber-800 mt-1">
                 {(review?.critical_count || 0) + (review?.high_count || 0)}
               </p>
             </Card>
 
-            <Card className="p-4 text-center">
-              <span className="text-[10px] font-mono uppercase text-[#0D2818]/60 font-bold">Medium / Low</span>
-              <p className="text-2xl font-serif font-bold text-[#0D2818] mt-1">
+            <Card className="p-4 text-center bg-white/90">
+              <span className="text-[11px] font-sans uppercase text-zinc-400 font-medium">Medium / Low</span>
+              <p className="text-2xl font-serif text-zinc-900 mt-1">
                 {(review?.medium_count || 0) + (review?.low_count || 0)}
               </p>
             </Card>

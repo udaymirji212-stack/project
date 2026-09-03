@@ -116,36 +116,36 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const currentIndex = WORKFLOW_STAGES.findIndex((s) => s.id === currentStage);
 
   return (
-    <aside className="w-full lg:w-72 shrink-0 border-r border-forest-900/10 bg-ivory-50/50 p-4 flex flex-col justify-between overflow-y-auto">
+    <aside className="w-full lg:w-72 shrink-0 border-r border-zinc-200 bg-white/80 backdrop-blur-md p-4 flex flex-col justify-between overflow-y-auto font-sans">
       <div className="space-y-4">
         {/* Pipeline Progress Indicator */}
-        <div className="rounded-xl bg-forest-900 p-4 text-ivory-100 shadow-md">
+        <div className="rounded-2xl bg-zinc-900 p-4 text-white shadow-sm">
           <div className="flex items-center justify-between text-xs mb-2">
-            <span className="font-semibold text-lime-400 flex items-center gap-1.5">
+            <span className="font-semibold text-indigo-400 flex items-center gap-1.5">
               <Sparkles className="w-3.5 h-3.5" />
               Pipeline Progress
             </span>
-            <span className="font-mono font-bold text-ivory-200">
+            <span className="font-mono font-bold text-zinc-300">
               {Math.min(100, Math.round(((currentIndex + 1) / WORKFLOW_STAGES.length) * 100))}%
             </span>
           </div>
-          <div className="h-2 w-full rounded-full bg-forest-800 overflow-hidden">
+          <div className="h-1.5 w-full rounded-full bg-zinc-800 overflow-hidden">
             <div
-              className="h-full rounded-full bg-gradient-to-r from-lime-500 to-emerald-400 transition-all duration-500"
+              className="h-full rounded-full bg-indigo-500 transition-all duration-500"
               style={{
                 width: `${((currentIndex + 1) / WORKFLOW_STAGES.length) * 100}%`,
               }}
             />
           </div>
-          <div className="mt-3 flex items-center justify-between text-[11px] text-ivory-300/80">
+          <div className="mt-3 flex items-center justify-between text-[11px] text-zinc-400">
             <span>Stage {currentIndex + 1} of {WORKFLOW_STAGES.length}</span>
-            {totalFiles > 0 && <span className="font-mono text-lime-300">{totalFiles} Files Ready</span>}
+            {totalFiles > 0 && <span className="font-mono text-indigo-300">{totalFiles} Files</span>}
           </div>
         </div>
 
         {/* Stages Navigation List */}
-        <nav className="space-y-1.5">
-          <div className="px-2 py-1 text-[11px] font-bold uppercase tracking-wider text-forest-700/60">
+        <nav className="space-y-1">
+          <div className="px-2 py-1 text-[11px] font-semibold uppercase tracking-wider text-zinc-400">
             Transformation Pipeline
           </div>
           {WORKFLOW_STAGES.map((stage, idx) => {
@@ -155,20 +155,21 @@ export const Sidebar: React.FC<SidebarProps> = ({
             return (
               <button
                 key={stage.id}
+                type="button"
                 onClick={() => onSelectStage(stage.id)}
-                className={`w-full group flex items-start space-x-3 rounded-xl p-3 text-left transition-all ${
+                className={`w-full group flex items-start space-x-3 rounded-xl p-3 text-left transition-all cursor-pointer ${
                   isActive
-                    ? 'bg-forest-800 text-ivory-100 shadow-md ring-1 ring-forest-900'
-                    : 'text-forest-900 hover:bg-forest-800/5 hover:text-forest-950'
+                    ? 'bg-zinc-900 text-white shadow-sm'
+                    : 'text-zinc-700 hover:bg-zinc-100 hover:text-zinc-900'
                 }`}
               >
                 <div
-                  className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg font-mono text-xs font-bold transition-colors ${
+                  className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-xs font-medium transition-colors ${
                     isActive
-                      ? 'bg-lime-500 text-forest-950 font-extrabold shadow-sm'
+                      ? 'bg-indigo-600 text-white shadow-xs'
                       : isDone
-                      ? 'bg-forest-700/10 text-forest-800 border border-forest-800/20'
-                      : 'bg-ivory-200 text-forest-700/70'
+                      ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
+                      : 'bg-zinc-100 text-zinc-600'
                   }`}
                 >
                   {isDone ? (
@@ -181,26 +182,26 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center justify-between">
                     <span
-                      className={`text-xs font-bold truncate ${
-                        isActive ? 'text-ivory-100' : 'text-forest-950'
+                      className={`text-xs font-medium truncate ${
+                        isActive ? 'text-white' : 'text-zinc-900'
                       }`}
                     >
                       {stage.name}
                     </span>
                     {stage.id === 'workspace' && totalFiles > 0 && (
-                      <span className="text-[10px] px-1.5 py-0.2 rounded bg-lime-400/20 text-lime-400 font-mono">
+                      <span className="text-[10px] px-1.5 py-0.2 rounded bg-indigo-50 text-indigo-700 font-mono">
                         {totalFiles}
                       </span>
                     )}
                     {stage.id === 'review_testing' && totalIssues > 0 && (
-                      <span className="text-[10px] px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 font-mono">
+                      <span className="text-[10px] px-1.5 py-0.2 rounded bg-amber-50 text-amber-700 font-mono">
                         {totalIssues}
                       </span>
                     )}
                   </div>
                   <p
                     className={`text-[11px] truncate mt-0.5 ${
-                      isActive ? 'text-ivory-300/80' : 'text-forest-700/60'
+                      isActive ? 'text-zinc-400' : 'text-zinc-500'
                     }`}
                   >
                     {stage.description}
@@ -213,12 +214,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
       </div>
 
       {/* Bottom Summary Helper */}
-      <div className="mt-4 pt-4 border-t border-forest-900/10 text-[11px] text-forest-700/70 flex items-center justify-between">
-        <span className="flex items-center gap-1">
+      <div className="mt-4 pt-4 border-t border-zinc-100 text-[11px] text-zinc-400 flex items-center justify-between">
+        <span className="flex items-center gap-1.5">
           <Circle className="h-2 w-2 fill-emerald-500 text-emerald-500" />
-          Zero-Config SQLite Ready
+          Zero-Config Ready
         </span>
-        <span className="font-mono text-[10px] bg-forest-900/5 px-2 py-0.5 rounded">v2.0</span>
+        <span className="font-mono text-[10px] bg-zinc-100 text-zinc-600 px-2 py-0.5 rounded">v2.0</span>
       </div>
     </aside>
   );

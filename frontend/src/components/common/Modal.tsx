@@ -50,25 +50,26 @@ export const Modal: React.FC<ModalProps> = ({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-[#0A2315]/40 backdrop-blur-sm"
+            className="fixed inset-0 bg-black/40 backdrop-blur-xs"
             onClick={onClose}
           />
 
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 10 }}
+            initial={{ opacity: 0, scale: 0.96, y: 12 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 10 }}
+            exit={{ opacity: 0, scale: 0.96, y: 12 }}
             transition={{ type: 'spring', duration: 0.3 }}
-            className={`relative w-full ${widthClass} bg-white rounded-3xl p-6 md:p-8 shadow-2xl border border-[#0D2818]/15 z-10 max-h-[90vh] flex flex-col`}
+            className={`relative w-full ${widthClass} bg-white/95 backdrop-blur-xl rounded-2xl p-6 md:p-8 shadow-[var(--shadow-dashboard)] border border-zinc-200 z-10 max-h-[90vh] flex flex-col font-sans`}
           >
-            <div className="flex items-start justify-between pb-4 border-b border-[#0D2818]/10 mb-4">
+            <div className="flex items-start justify-between pb-4 border-b border-zinc-100 mb-4">
               <div>
-                <h3 className="text-2xl font-serif font-bold text-[#0D2818]">{title}</h3>
-                {description && <p className="text-sm text-[#0D2818]/70 mt-1">{description}</p>}
+                <h3 className="text-2xl font-serif font-normal text-zinc-900">{title}</h3>
+                {description && <p className="text-sm text-zinc-500 font-sans mt-1">{description}</p>}
               </div>
               <button
+                type="button"
                 onClick={onClose}
-                className="p-2 rounded-full text-[#0D2818]/60 hover:text-[#0D2818] hover:bg-[#FAF7F2] transition-colors"
+                className="p-1.5 rounded-full text-zinc-400 hover:text-zinc-700 hover:bg-zinc-100 transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>

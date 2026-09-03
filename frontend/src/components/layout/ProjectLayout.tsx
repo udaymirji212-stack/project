@@ -32,7 +32,7 @@ export const ProjectLayout: React.FC = () => {
         particleCount: 80,
         spread: 70,
         origin: { y: 0.6 },
-        colors: ['#84CC16', '#0D2818', '#A3E635'],
+        colors: ['#6366F1', '#4F46E5', '#A5B4FC'],
       });
       queryClient.invalidateQueries({ queryKey: ['project', projectId] });
     } catch (err: any) {
@@ -44,18 +44,18 @@ export const ProjectLayout: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-        <div className="w-10 h-10 border-4 border-[#0D2818] border-t-[#84CC16] rounded-full animate-spin mx-auto mb-4" />
-        <p className="font-mono text-sm text-[#0D2818]/70">Loading Project Workspace...</p>
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 py-16 text-center">
+        <div className="w-10 h-10 border-4 border-zinc-200 border-t-indigo-600 rounded-full animate-spin mx-auto mb-4" />
+        <p className="font-sans text-sm text-zinc-500">Loading Project Workspace...</p>
       </div>
     );
   }
 
   if (error || !project) {
     return (
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-        <h2 className="font-serif font-bold text-2xl text-rose-800">Project Not Found</h2>
-        <p className="text-sm text-[#0D2818]/70 mt-2 mb-6">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 py-16 text-center">
+        <h2 className="font-serif text-2xl text-rose-800">Project Not Found</h2>
+        <p className="text-sm text-zinc-500 mt-2 mb-6">
           The requested project does not exist or you do not have permission to view it.
         </p>
         <Link to="/dashboard">
@@ -66,18 +66,18 @@ export const ProjectLayout: React.FC = () => {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+    <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-20 py-8 space-y-6 font-sans">
       {/* Top Banner & Actions */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-[#0D2818]/10 pb-6">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-zinc-200/80 pb-6">
         <div>
           <div className="flex items-center gap-2 mb-1.5">
             <Link
               to="/dashboard"
-              className="text-xs font-mono text-[#0D2818]/60 hover:text-[#0D2818] inline-flex items-center gap-1 transition-colors"
+              className="text-xs font-sans text-zinc-500 hover:text-zinc-900 inline-flex items-center gap-1 transition-colors"
             >
               <ArrowLeft className="w-3.5 h-3.5" /> Dashboard
             </Link>
-            <span className="text-xs text-[#0D2818]/30">/</span>
+            <span className="text-xs text-zinc-300">/</span>
             <Badge variant="lime" size="sm">
               {project.preferred_tech_stack}
             </Badge>
@@ -87,10 +87,10 @@ export const ProjectLayout: React.FC = () => {
               </Badge>
             )}
           </div>
-          <h1 className="text-3xl sm:text-4xl font-serif font-bold text-[#0D2818]">
+          <h1 className="text-3xl sm:text-4xl font-serif text-zinc-900">
             {project.name}
           </h1>
-          <p className="text-sm text-[#0D2818]/70 mt-1 max-w-3xl line-clamp-1">
+          <p className="text-sm text-zinc-500 mt-1 max-w-3xl line-clamp-1">
             {project.business_idea}
           </p>
         </div>

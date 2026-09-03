@@ -69,19 +69,19 @@ export const SrsPage: React.FC = () => {
 
   if (isLoading) {
     return (
-      <div className="text-center py-20">
-        <div className="w-10 h-10 border-4 border-[#0D2818] border-t-[#84CC16] rounded-full animate-spin mx-auto mb-4" />
-        <p className="font-mono text-sm text-[#0D2818]/70">Formulating IEEE 830 Specification Document...</p>
+      <div className="text-center py-20 font-sans">
+        <div className="w-10 h-10 border-4 border-zinc-200 border-t-indigo-600 rounded-full animate-spin mx-auto mb-4" />
+        <p className="font-sans text-sm text-zinc-500">Formulating IEEE 830 Specification Document...</p>
       </div>
     );
   }
 
   if (!srs) {
     return (
-      <Card className="text-center py-16 px-6 max-w-lg mx-auto space-y-4">
-        <BookOpen className="w-10 h-10 text-[#84CC16] mx-auto" />
-        <h3 className="font-serif font-bold text-2xl text-[#0D2818]">No SRS Generated</h3>
-        <p className="text-xs text-[#0D2818]/70 font-sans">
+      <Card className="text-center py-16 px-6 max-w-lg mx-auto space-y-4 bg-white/90">
+        <BookOpen className="w-10 h-10 text-indigo-600 mx-auto" />
+        <h3 className="font-serif text-2xl text-zinc-900">No SRS Generated</h3>
+        <p className="text-xs text-zinc-500 font-sans">
           Synthesize an IEEE 830 / ISO 29148 compliant specification from your approved requirements.
         </p>
         <Button
@@ -97,20 +97,20 @@ export const SrsPage: React.FC = () => {
   }
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 font-sans">
       {/* Top Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-3xl border border-[#0D2818]/10 shadow-sm">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white/90 backdrop-blur-md p-6 rounded-2xl border border-zinc-200 shadow-xs">
         <div>
           <div className="flex items-center gap-2">
             <Badge variant="lime" size="sm">
               IEEE-830 COMPLIANT
             </Badge>
-            <span className="text-xs font-mono text-[#0D2818]/60">Version {srs.version}</span>
+            <span className="text-xs font-sans text-zinc-400">Version {srs.version}</span>
           </div>
-          <h2 className="font-serif font-bold text-2xl text-[#0D2818] mt-1">
+          <h2 className="font-serif text-2xl text-zinc-900 mt-1">
             Software Requirements Specification (SRS)
           </h2>
-          <p className="text-xs text-[#0D2818]/70 font-sans mt-0.5">
+          <p className="text-xs text-zinc-500 font-sans mt-0.5">
             Formal architectural document covering functional, non-functional, data, and security guarantees.
           </p>
         </div>
@@ -119,7 +119,7 @@ export const SrsPage: React.FC = () => {
           <Button
             variant="outline"
             size="sm"
-            icon={copied ? <Check className="w-3.5 h-3.5 text-[#84CC16]" /> : <Copy className="w-3.5 h-3.5" />}
+            icon={copied ? <Check className="w-3.5 h-3.5 text-indigo-600" /> : <Copy className="w-3.5 h-3.5" />}
             onClick={handleCopy}
           >
             {copied ? 'Copied!' : 'Copy Markdown'}
@@ -162,28 +162,28 @@ export const SrsPage: React.FC = () => {
 
       {/* Editor or Formatted Markdown Display */}
       {isEditing ? (
-        <Card className="p-4">
+        <Card className="p-4 bg-white/90">
           <textarea
             rows={24}
             value={editedMarkdown}
             onChange={(e) => setEditedMarkdown(e.target.value)}
-            className="w-full bg-[#FAF7F2] font-mono text-xs text-[#0D2818] p-4 rounded-2xl border border-[#0D2818]/15 focus:outline-none focus:ring-2 focus:ring-[#84CC16] leading-relaxed"
+            className="w-full bg-zinc-50 font-mono text-xs text-zinc-800 p-4 rounded-xl border border-zinc-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 leading-relaxed"
           />
         </Card>
       ) : (
-        <Card className="p-8 sm:p-12 space-y-8 prose prose-emerald max-w-none bg-white">
-          <div className="border-b border-[#0D2818]/15 pb-6">
-            <h1 className="font-serif font-bold text-3xl sm:text-4xl text-[#0D2818] mb-2">
+        <Card className="p-8 sm:p-12 space-y-8 bg-white/90">
+          <div className="border-b border-zinc-200/80 pb-6">
+            <h1 className="font-serif text-3xl sm:text-4xl text-zinc-900 mb-2">
               {srs.title}
             </h1>
-            <div className="flex items-center gap-4 text-xs font-mono text-[#0D2818]/60">
+            <div className="flex items-center gap-4 text-xs font-sans text-zinc-400">
               <span>Standard: IEEE 830 / ISO 29148</span>
               <span>•</span>
               <span>Updated: {new Date(srs.updated_at).toLocaleDateString()}</span>
             </div>
           </div>
 
-          <div className="space-y-6 text-sm font-sans text-[#0D2818]/90 leading-relaxed whitespace-pre-wrap font-sans">
+          <div className="space-y-6 text-sm text-zinc-700 leading-relaxed whitespace-pre-wrap font-sans">
             {srs.full_markdown}
           </div>
         </Card>

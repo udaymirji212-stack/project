@@ -54,7 +54,7 @@ export const WorkflowStepper: React.FC<WorkflowStepperProps> = ({ currentStage }
   const currentStageIndex = STAGE_ORDER.indexOf(currentStage);
 
   return (
-    <div className="w-full bg-white rounded-3xl border border-[#0D2818]/10 p-3 sm:p-4 shadow-sm overflow-x-auto">
+    <div className="w-full bg-white/90 backdrop-blur-md rounded-2xl border border-zinc-200 p-3 sm:p-4 shadow-xs overflow-x-auto font-sans">
       <div className="flex items-center min-w-max gap-1 sm:gap-2">
         {STEPS.map((step, idx) => {
           const stepIndex = STAGE_ORDER.indexOf(step.id);
@@ -66,21 +66,21 @@ export const WorkflowStepper: React.FC<WorkflowStepperProps> = ({ currentStage }
             <React.Fragment key={step.id}>
               <Link
                 to={`/projects/${projectId}/${step.path}`}
-                className={`group flex items-center gap-2 px-3 py-2 rounded-full transition-all duration-200 text-xs font-mono font-medium ${
+                className={`group flex items-center gap-2 px-3.5 py-2 rounded-full transition-all duration-200 text-xs font-sans font-medium ${
                   isCurrent
-                    ? 'bg-[#0D2818] text-white shadow-sm ring-2 ring-[#84CC16]/50'
+                    ? 'bg-zinc-900 text-white shadow-xs'
                     : isCompleted
-                    ? 'bg-[#FAF7F2] text-[#0D2818] hover:bg-[#EBE3D5] border border-[#0D2818]/15'
-                    : 'text-[#0D2818]/60 hover:text-[#0D2818] hover:bg-[#FAF7F2]'
+                    ? 'bg-zinc-100 text-zinc-800 hover:bg-zinc-200/80 border border-zinc-200'
+                    : 'text-zinc-500 hover:text-zinc-900 hover:bg-zinc-50'
                 }`}
               >
                 <div
                   className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 text-[10px] ${
                     isCurrent
-                      ? 'bg-[#84CC16] text-[#0D2818] font-bold'
+                      ? 'bg-indigo-600 text-white font-bold'
                       : isCompleted
-                      ? 'bg-emerald-100 text-emerald-800'
-                      : 'bg-[#0D2818]/10 text-[#0D2818]'
+                      ? 'bg-emerald-100 text-emerald-700'
+                      : 'bg-zinc-200/70 text-zinc-600'
                   }`}
                 >
                   {isCompleted ? <Check className="w-3 h-3 stroke-[3]" /> : <IconComponent className="w-3 h-3" />}
@@ -90,7 +90,7 @@ export const WorkflowStepper: React.FC<WorkflowStepperProps> = ({ currentStage }
               {idx < STEPS.length - 1 && (
                 <div
                   className={`w-3 sm:w-6 h-px shrink-0 ${
-                    isCompleted ? 'bg-emerald-500' : 'bg-[#0D2818]/15'
+                    isCompleted ? 'bg-emerald-400' : 'bg-zinc-200'
                   }`}
                 />
               )}

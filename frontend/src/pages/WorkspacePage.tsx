@@ -135,14 +135,14 @@ export const WorkspacePage: React.FC = () => {
   };
 
   return (
-    <div className="space-y-4 animate-fade-in">
+    <div className="space-y-4 font-sans">
       {/* Top Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-4 sm:p-6 rounded-3xl border border-[#0D2818]/10 shadow-sm">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white/90 backdrop-blur-md p-4 sm:p-6 rounded-2xl border border-zinc-200 shadow-xs">
         <div>
-          <h2 className="font-serif font-bold text-2xl text-[#0D2818]">
+          <h2 className="font-serif text-2xl text-zinc-900">
             Monaco Workspace IDE
           </h2>
-          <p className="text-xs text-[#0D2818]/70 font-sans mt-0.5">
+          <p className="text-xs text-zinc-500 font-sans mt-0.5">
             Full source code editor with multi-tab browsing, live saving (Cmd+S), and tree management.
           </p>
         </div>
@@ -173,7 +173,7 @@ export const WorkspacePage: React.FC = () => {
         </div>
 
         {/* Right Column: TabBar & Monaco Editor */}
-        <div className="md:col-span-3 h-full flex flex-col rounded-2xl overflow-hidden shadow-lg border border-[#0D2818]/20 bg-[#1E1E1E]">
+        <div className="md:col-span-3 h-full flex flex-col rounded-2xl overflow-hidden shadow-md border border-zinc-200 bg-[#1E1E1E]">
           <TabBar
             openFiles={openFiles}
             activeFileId={activeFileId}
@@ -209,10 +209,10 @@ export const WorkspacePage: React.FC = () => {
             if (!newFilePath.trim()) return;
             createMutation.mutate({ path: newFilePath.trim(), content: newFileContent });
           }}
-          className="space-y-4 pt-2"
+          className="space-y-4 pt-2 font-sans"
         >
           <div>
-            <label className="block text-xs font-mono font-bold uppercase text-[#0D2818] mb-1">
+            <label className="block text-sm font-medium text-zinc-800 mb-1">
               Relative File Path *
             </label>
             <input
@@ -220,12 +220,12 @@ export const WorkspacePage: React.FC = () => {
               value={newFilePath}
               onChange={(e) => setNewFilePath(e.target.value)}
               placeholder="e.g. backend/app/services/custom_service.py"
-              className="w-full bg-[#FAF7F2] text-xs font-mono px-3.5 py-2.5 rounded-xl border border-[#0D2818]/15 focus:outline-none focus:ring-1 focus:ring-[#84CC16]"
+              className="saas-input font-mono text-xs"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-mono font-bold uppercase text-[#0D2818] mb-1">
+            <label className="block text-sm font-medium text-zinc-800 mb-1">
               Initial Content
             </label>
             <textarea
@@ -233,11 +233,11 @@ export const WorkspacePage: React.FC = () => {
               value={newFileContent}
               onChange={(e) => setNewFileContent(e.target.value)}
               placeholder="# Write initial code here..."
-              className="w-full bg-[#FAF7F2] text-xs font-mono p-3 rounded-xl border border-[#0D2818]/15 focus:outline-none focus:ring-1 focus:ring-[#84CC16]"
+              className="w-full rounded-lg border border-zinc-200 bg-white p-3 font-mono text-xs text-zinc-900 outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
 
-          <div className="flex justify-end gap-3 pt-3 border-t border-[#0D2818]/10">
+          <div className="flex justify-end gap-3 pt-3 border-t border-zinc-100">
             <Button variant="outline" size="sm" type="button" onClick={() => setCreateModalOpen(false)}>
               Cancel
             </Button>

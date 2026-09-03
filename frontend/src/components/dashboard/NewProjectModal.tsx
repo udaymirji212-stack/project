@@ -118,26 +118,27 @@ export const NewProjectModal: React.FC<NewProjectModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-forest-950/70 p-4 backdrop-blur-sm">
-      <div className="relative w-full max-w-4xl rounded-3xl bg-ivory-100 p-6 sm:p-8 shadow-2xl border border-forest-900/20 max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/40 p-4 backdrop-blur-xs font-sans">
+      <div className="relative w-full max-w-4xl rounded-2xl bg-white/95 backdrop-blur-xl p-6 sm:p-8 shadow-[var(--shadow-dashboard)] border border-zinc-200 max-h-[90vh] overflow-y-auto">
         {/* Close Button */}
         <button
+          type="button"
           onClick={onClose}
-          className="absolute right-6 top-6 rounded-full p-2 text-forest-700/60 hover:bg-forest-900/10 hover:text-forest-900 transition-colors"
+          className="absolute right-6 top-6 rounded-full p-2 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-700 transition-colors cursor-pointer"
         >
           <X className="h-5 w-5" />
         </button>
 
         {/* Header */}
         <div className="flex items-center space-x-3 mb-6">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-forest-900 text-lime-400 shadow-md">
-            <Sparkles className="h-6 w-6" />
+          <div className="flex h-11 w-11 items-center justify-center rounded-full bg-zinc-900 text-white shadow-xs">
+            <Sparkles className="h-5 w-5 text-indigo-400" />
           </div>
           <div>
-            <h2 className="font-serif text-2xl font-bold text-forest-950">
+            <h2 className="font-serif text-2xl text-zinc-900">
               Create New Software Project
             </h2>
-            <p className="text-xs text-forest-700/70">
+            <p className="text-xs text-zinc-500 font-sans">
               Describe your software concept or choose a quick starter template.
             </p>
           </div>
@@ -145,7 +146,7 @@ export const NewProjectModal: React.FC<NewProjectModalProps> = ({
 
         {/* Template Quick Selection */}
         <div className="mb-6">
-          <label className="block text-xs font-bold uppercase tracking-wider text-forest-700/70 mb-2.5">
+          <label className="block text-xs font-medium text-zinc-500 uppercase tracking-wider mb-2.5">
             Instant Starter Templates (Click to Auto-Fill)
           </label>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
@@ -157,26 +158,26 @@ export const NewProjectModal: React.FC<NewProjectModalProps> = ({
                   key={t.name}
                   type="button"
                   onClick={() => handleApplyTemplate(t, idx)}
-                  className={`p-3 rounded-2xl text-left border transition-all ${
+                  className={`p-3.5 rounded-xl text-left border transition-all cursor-pointer ${
                     isSelected
-                      ? 'bg-forest-900 text-ivory-100 border-lime-500 shadow-md ring-2 ring-lime-500/30'
-                      : 'bg-ivory-50 text-forest-900 border-forest-900/10 hover:border-forest-900/30 hover:bg-ivory-200'
+                      ? 'bg-zinc-900 text-white border-zinc-900 shadow-sm'
+                      : 'bg-white text-zinc-800 border-zinc-200 hover:border-zinc-300 hover:bg-zinc-50'
                   }`}
                 >
                   <div className="flex items-center justify-between mb-2">
                     <div
                       className={`p-1.5 rounded-lg ${
-                        isSelected ? 'bg-forest-800 text-lime-400' : 'bg-forest-900/5 text-forest-800'
+                        isSelected ? 'bg-zinc-800 text-indigo-400' : 'bg-zinc-100 text-zinc-700'
                       }`}
                     >
                       <Icon className="h-4 w-4" />
                     </div>
-                    {isSelected && <Check className="h-4 w-4 text-lime-400" />}
+                    {isSelected && <Check className="h-4 w-4 text-indigo-400" />}
                   </div>
-                  <div className="font-bold text-xs line-clamp-1">{t.name}</div>
+                  <div className="font-medium text-xs line-clamp-1">{t.name}</div>
                   <div
-                    className={`text-[10px] mt-1 line-clamp-2 ${
-                      isSelected ? 'text-ivory-300/80' : 'text-forest-700/60'
+                    className={`text-[11px] mt-1 line-clamp-2 ${
+                      isSelected ? 'text-zinc-400' : 'text-zinc-500'
                     }`}
                   >
                     {t.category} • {t.techStack.split('+')[0]}
@@ -191,7 +192,7 @@ export const NewProjectModal: React.FC<NewProjectModalProps> = ({
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-bold text-forest-900 mb-1.5">
+              <label className="block text-sm font-medium text-zinc-800 mb-1.5">
                 Project Name <span className="text-red-500">*</span>
               </label>
               <input
@@ -200,18 +201,18 @@ export const NewProjectModal: React.FC<NewProjectModalProps> = ({
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="e.g., FinPulse AI - Smart Wealth & Ledger"
-                className="w-full rounded-xl bg-ivory-50 px-3.5 py-2.5 text-sm text-forest-950 border border-forest-900/15 focus:border-forest-900 focus:outline-none focus:ring-2 focus:ring-lime-500/30 font-medium"
+                className="saas-input"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-forest-900 mb-1.5">
+              <label className="block text-sm font-medium text-zinc-800 mb-1.5">
                 Preferred Tech Stack
               </label>
               <select
                 value={preferredTechStack}
                 onChange={(e) => setPreferredTechStack(e.target.value)}
-                className="w-full rounded-xl bg-ivory-50 px-3.5 py-2.5 text-sm text-forest-950 border border-forest-900/15 focus:border-forest-900 focus:outline-none focus:ring-2 focus:ring-lime-500/30 font-medium"
+                className="saas-input cursor-pointer"
               >
                 <option value="React + FastAPI + PostgreSQL">React + FastAPI + PostgreSQL (Recommended)</option>
                 <option value="Next.js + Node.js + Prisma + PostgreSQL">Next.js + Node.js + Prisma + PostgreSQL</option>
@@ -223,7 +224,7 @@ export const NewProjectModal: React.FC<NewProjectModalProps> = ({
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-forest-900 mb-1.5">
+            <label className="block text-sm font-medium text-zinc-800 mb-1.5">
               Core Business Concept / Problem Statement <span className="text-red-500">*</span>
             </label>
             <textarea
@@ -232,13 +233,13 @@ export const NewProjectModal: React.FC<NewProjectModalProps> = ({
               value={businessIdea}
               onChange={(e) => setBusinessIdea(e.target.value)}
               placeholder="Describe the application, what problem it solves, what value it brings, and how it will work..."
-              className="w-full rounded-xl bg-ivory-50 p-3 text-sm text-forest-950 border border-forest-900/15 focus:border-forest-900 focus:outline-none focus:ring-2 focus:ring-lime-500/30"
+              className="w-full rounded-lg border border-zinc-200 bg-white p-3 font-sans text-sm text-zinc-900 outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-bold text-forest-900 mb-1.5">
+              <label className="block text-sm font-medium text-zinc-800 mb-1.5">
                 Target User Personas
               </label>
               <input
@@ -246,12 +247,12 @@ export const NewProjectModal: React.FC<NewProjectModalProps> = ({
                 value={targetUsers}
                 onChange={(e) => setTargetUsers(e.target.value)}
                 placeholder="e.g., Financial managers, Freelancers, Retail customers"
-                className="w-full rounded-xl bg-ivory-50 px-3.5 py-2.5 text-sm text-forest-950 border border-forest-900/15 focus:border-forest-900 focus:outline-none focus:ring-2 focus:ring-lime-500/30"
+                className="saas-input"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-forest-900 mb-1.5">
+              <label className="block text-sm font-medium text-zinc-800 mb-1.5">
                 Key Features List
               </label>
               <input
@@ -259,13 +260,13 @@ export const NewProjectModal: React.FC<NewProjectModalProps> = ({
                 value={expectedFeatures}
                 onChange={(e) => setExpectedFeatures(e.target.value)}
                 placeholder="e.g., Auth, Dashboard, CSV import, Stripe, Reports"
-                className="w-full rounded-xl bg-ivory-50 px-3.5 py-2.5 text-sm text-forest-950 border border-forest-900/15 focus:border-forest-900 focus:outline-none focus:ring-2 focus:ring-lime-500/30"
+                className="saas-input"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-forest-900 mb-1.5">
+            <label className="block text-sm font-medium text-zinc-800 mb-1.5">
               Technical Constraints & Non-Functional Requirements (Optional)
             </label>
             <input
@@ -273,25 +274,25 @@ export const NewProjectModal: React.FC<NewProjectModalProps> = ({
               value={constraints}
               onChange={(e) => setConstraints(e.target.value)}
               placeholder="e.g., Sub-100ms response time, AES-256 data encryption, WCAG AA compliance"
-              className="w-full rounded-xl bg-ivory-50 px-3.5 py-2.5 text-sm text-forest-950 border border-forest-900/15 focus:border-forest-900 focus:outline-none focus:ring-2 focus:ring-lime-500/30"
+              className="saas-input"
             />
           </div>
 
           {/* Action Buttons */}
-          <div className="mt-6 pt-4 border-t border-forest-900/10 flex items-center justify-end space-x-3">
+          <div className="mt-6 pt-4 border-t border-zinc-100 flex items-center justify-end space-x-3">
             <button
               type="button"
               onClick={onClose}
-              className="rounded-xl px-5 py-2.5 text-xs font-bold text-forest-800 hover:bg-forest-900/10 transition-colors"
+              className="rounded-full px-5 py-2.5 text-xs font-medium text-zinc-600 hover:bg-zinc-100 transition-colors cursor-pointer"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={isSubmitting || !name.trim() || !businessIdea.trim()}
-              className="inline-flex items-center space-x-2 rounded-xl bg-forest-900 px-6 py-2.5 text-xs font-bold text-lime-400 shadow-md transition-all hover:bg-forest-950 disabled:opacity-50"
+              className="inline-flex items-center space-x-2 rounded-full bg-zinc-900 px-6 py-2.5 text-xs font-medium text-white shadow-sm transition-all hover:bg-black disabled:opacity-50 cursor-pointer"
             >
-              <Sparkles className="h-4 w-4" />
+              <Sparkles className="h-4 w-4 text-indigo-400" />
               <span>{isSubmitting ? 'Initializing Project...' : 'Start Transformation Pipeline'}</span>
             </button>
           </div>

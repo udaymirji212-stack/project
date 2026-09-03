@@ -89,12 +89,12 @@ export const NewProjectPage: React.FC = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
+    <div className="max-w-4xl mx-auto px-6 md:px-12 lg:px-20 py-10 space-y-8 font-sans">
       {/* Header */}
-      <div className="space-y-2 border-b border-[#0D2818]/10 pb-6">
+      <div className="space-y-2 border-b border-zinc-200/80 pb-6">
         <Link
           to="/dashboard"
-          className="text-xs font-mono text-[#0D2818]/60 hover:text-[#0D2818] inline-flex items-center gap-1.5 transition-colors mb-2"
+          className="text-xs font-sans text-zinc-500 hover:text-zinc-900 inline-flex items-center gap-1.5 transition-colors mb-2"
         >
           <ArrowLeft className="w-3.5 h-3.5" /> Back to Dashboard
         </Link>
@@ -102,99 +102,99 @@ export const NewProjectPage: React.FC = () => {
           <Badge variant="lime" size="sm">
             STAGE 0
           </Badge>
-          <span className="text-xs font-mono text-[#0D2818]/60">Initialization Wizard</span>
+          <span className="text-xs font-sans text-zinc-400">Initialization Wizard</span>
         </div>
-        <h1 className="text-3xl sm:text-4xl font-serif font-bold text-[#0D2818]">
+        <h1 className="text-3xl sm:text-4xl font-serif text-zinc-900">
           Initialize New Software Project
         </h1>
-        <p className="text-sm text-[#0D2818]/70 font-sans">
+        <p className="text-sm text-zinc-500 font-sans">
           Provide your business concept, core problem, target audience, and architectural preferences.
         </p>
       </div>
 
       {errorMessage && (
-        <div className="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-800 text-xs font-mono">
+        <div className="p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm font-sans">
           {errorMessage}
         </div>
       )}
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-        <Card className="p-6 sm:p-8 space-y-6">
+        <Card className="p-6 sm:p-8 space-y-6 bg-white/90">
           {/* 1. Project Name */}
           <div className="space-y-1.5">
-            <label className="block text-xs font-mono font-bold uppercase tracking-wider text-[#0D2818]">
+            <label className="block text-sm font-medium text-zinc-800">
               Project Name *
             </label>
             <input
               type="text"
               {...register('name')}
               placeholder="e.g. FinTrack Pro, HealthPulse AI, OmniLogistics"
-              className="w-full bg-[#FAF7F2] text-sm text-[#0D2818] px-4 py-3 rounded-2xl border border-[#0D2818]/15 focus:outline-none focus:ring-2 focus:ring-[#84CC16]"
+              className="saas-input"
             />
             {errors.name && (
-              <p className="text-xs text-rose-600 font-mono mt-1">{errors.name.message}</p>
+              <p className="text-sm text-red-600 mt-1">{errors.name.message}</p>
             )}
           </div>
 
           {/* 2. Business Idea */}
           <div className="space-y-1.5">
-            <label className="block text-xs font-mono font-bold uppercase tracking-wider text-[#0D2818]">
+            <label className="block text-sm font-medium text-zinc-800">
               Business Idea & Product Goal *
             </label>
             <textarea
               rows={4}
               {...register('business_idea')}
               placeholder="Describe the overarching business model, user workflow, and value proposition..."
-              className="w-full bg-[#FAF7F2] text-sm text-[#0D2818] p-4 rounded-2xl border border-[#0D2818]/15 focus:outline-none focus:ring-2 focus:ring-[#84CC16]"
+              className="w-full rounded-lg border border-zinc-200 bg-white p-4 font-sans text-sm text-zinc-900 outline-none focus:ring-2 focus:ring-indigo-500"
             />
             {errors.business_idea && (
-              <p className="text-xs text-rose-600 font-mono mt-1">{errors.business_idea.message}</p>
+              <p className="text-sm text-red-600 mt-1">{errors.business_idea.message}</p>
             )}
           </div>
 
           {/* 3. Target Users & Main Problem */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div className="space-y-1.5">
-              <label className="block text-xs font-mono font-bold uppercase tracking-wider text-[#0D2818]">
+              <label className="block text-sm font-medium text-zinc-800">
                 Target Users / Personas
               </label>
               <input
                 type="text"
                 {...register('target_users')}
                 placeholder="e.g. Small business owners, Operations Managers"
-                className="w-full bg-[#FAF7F2] text-sm text-[#0D2818] px-4 py-3 rounded-2xl border border-[#0D2818]/15 focus:outline-none focus:ring-2 focus:ring-[#84CC16]"
+                className="saas-input"
               />
             </div>
 
             <div className="space-y-1.5">
-              <label className="block text-xs font-mono font-bold uppercase tracking-wider text-[#0D2818]">
+              <label className="block text-sm font-medium text-zinc-800">
                 Core Problem Being Solved
               </label>
               <input
                 type="text"
                 {...register('main_problem')}
                 placeholder="e.g. Manual spreadsheet reconciliations cause 40hr/wk delays"
-                className="w-full bg-[#FAF7F2] text-sm text-[#0D2818] px-4 py-3 rounded-2xl border border-[#0D2818]/15 focus:outline-none focus:ring-2 focus:ring-[#84CC16]"
+                className="saas-input"
               />
             </div>
           </div>
 
           {/* 4. Expected Features */}
           <div className="space-y-1.5">
-            <label className="block text-xs font-mono font-bold uppercase tracking-wider text-[#0D2818]">
+            <label className="block text-sm font-medium text-zinc-800">
               Expected Key Features (comma separated or bullet points)
             </label>
             <textarea
               rows={3}
               {...register('expected_features')}
               placeholder="e.g. CSV transaction import, Real-time cash forecasting, Role-based user permissions, Automated PDF reports"
-              className="w-full bg-[#FAF7F2] text-sm text-[#0D2818] p-4 rounded-2xl border border-[#0D2818]/15 focus:outline-none focus:ring-2 focus:ring-[#84CC16]"
+              className="w-full rounded-lg border border-zinc-200 bg-white p-4 font-sans text-sm text-zinc-900 outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
 
           {/* 5. Preferred Tech Stack */}
           <div className="space-y-2">
-            <label className="block text-xs font-mono font-bold uppercase tracking-wider text-[#0D2818]">
+            <label className="block text-sm font-medium text-zinc-800">
               Preferred Technology Stack
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 pt-1">
@@ -203,17 +203,17 @@ export const NewProjectPage: React.FC = () => {
                   type="button"
                   key={stack}
                   onClick={() => handleSelectStack(stack)}
-                  className={`p-3 rounded-2xl border text-xs font-mono text-left transition-all ${
+                  className={`p-3.5 rounded-xl border text-xs font-sans text-left transition-all cursor-pointer ${
                     selectedStack === stack
-                      ? 'bg-[#0D2818] text-white border-[#0D2818] shadow-md ring-2 ring-[#84CC16]/50'
-                      : 'bg-[#FAF7F2] text-[#0D2818] border-[#0D2818]/15 hover:bg-[#EBE3D5]'
+                      ? 'bg-zinc-900 text-white border-zinc-900 shadow-sm'
+                      : 'bg-white text-zinc-700 border-zinc-200 hover:bg-zinc-50'
                   }`}
                 >
-                  <div className="flex items-center justify-between mb-1">
-                    <Cpu className={`w-3.5 h-3.5 ${selectedStack === stack ? 'text-[#84CC16]' : 'text-[#0D2818]/60'}`} />
-                    {selectedStack === stack && <CheckCircle2 className="w-3.5 h-3.5 text-[#84CC16]" />}
+                  <div className="flex items-center justify-between mb-1.5">
+                    <Cpu className={`w-4 h-4 ${selectedStack === stack ? 'text-indigo-400' : 'text-zinc-400'}`} />
+                    {selectedStack === stack && <CheckCircle2 className="w-4 h-4 text-indigo-400" />}
                   </div>
-                  <span className="font-semibold block">{stack}</span>
+                  <span className="font-medium block">{stack}</span>
                 </button>
               ))}
             </div>
@@ -221,14 +221,14 @@ export const NewProjectPage: React.FC = () => {
 
           {/* 6. Constraints */}
           <div className="space-y-1.5">
-            <label className="block text-xs font-mono font-bold uppercase tracking-wider text-[#0D2818]">
+            <label className="block text-sm font-medium text-zinc-800">
               Technical or Operational Constraints (Optional)
             </label>
             <input
               type="text"
               {...register('constraints')}
               placeholder="e.g. Strict data isolation, Sub-200ms API response time, Zero external tracking"
-              className="w-full bg-[#FAF7F2] text-sm text-[#0D2818] px-4 py-3 rounded-2xl border border-[#0D2818]/15 focus:outline-none focus:ring-2 focus:ring-[#84CC16]"
+              className="saas-input"
             />
           </div>
         </Card>
@@ -236,13 +236,13 @@ export const NewProjectPage: React.FC = () => {
         {/* Form Actions */}
         <div className="flex flex-col sm:flex-row items-center justify-end gap-4 pt-2">
           <Link to="/dashboard">
-            <Button variant="outline" size="lg" type="button">
+            <Button variant="outline" size="md" type="button">
               Cancel
             </Button>
           </Link>
           <Button
             type="submit"
-            size="lg"
+            size="md"
             variant="accent"
             isLoading={createMutation.isPending}
             icon={<Sparkles className="w-4 h-4" />}

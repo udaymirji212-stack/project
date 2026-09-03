@@ -101,30 +101,30 @@ export const DatabaseApiPage: React.FC = () => {
 
   if (isDbLoading || isApiLoading) {
     return (
-      <div className="text-center py-20">
-        <div className="w-10 h-10 border-4 border-[#0D2818] border-t-[#84CC16] rounded-full animate-spin mx-auto mb-4" />
-        <p className="font-mono text-sm text-[#0D2818]/70">Generating Relational Entities & REST Contracts...</p>
+      <div className="text-center py-20 font-sans">
+        <div className="w-10 h-10 border-4 border-zinc-200 border-t-indigo-600 rounded-full animate-spin mx-auto mb-4" />
+        <p className="font-sans text-sm text-zinc-500">Generating Relational Entities & REST Contracts...</p>
       </div>
     );
   }
 
   return (
-    <div className="space-y-6 animate-fade-in">
+    <div className="space-y-6 font-sans">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-3xl border border-[#0D2818]/10 shadow-sm">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white/90 backdrop-blur-md p-6 rounded-2xl border border-zinc-200 shadow-xs">
         <div>
           <div className="flex items-center gap-2">
             <Badge variant="lime" size="sm">
               {dbDesign?.database_type || 'PostgreSQL 16'}
             </Badge>
-            <span className="text-xs font-mono text-[#0D2818]/60">
+            <span className="text-xs font-sans text-zinc-400">
               {dbDesign?.entities?.length || 0} Entities • {endpoints.length} Endpoints
             </span>
           </div>
-          <h2 className="font-serif font-bold text-2xl text-[#0D2818] mt-1">
+          <h2 className="font-serif text-2xl text-zinc-900 mt-1">
             Database Architecture & REST API Design
           </h2>
-          <p className="text-xs text-[#0D2818]/70 font-sans mt-0.5">
+          <p className="text-xs text-zinc-500 font-sans mt-0.5">
             Relational tables, foreign key constraints, indexes, and validated OpenAPI schema contracts.
           </p>
         </div>
@@ -151,39 +151,42 @@ export const DatabaseApiPage: React.FC = () => {
       </div>
 
       {/* Tabs */}
-      <div className="flex items-center justify-between gap-2 overflow-x-auto pb-1 text-xs font-mono">
+      <div className="flex items-center justify-between gap-2 overflow-x-auto pb-1 text-xs font-sans">
         <div className="flex items-center gap-2">
           <button
+            type="button"
             onClick={() => setActiveTab('er')}
-            className={`px-4 py-2 rounded-full border transition-all flex items-center gap-2 ${
+            className={`px-4 py-2 rounded-full border transition-all flex items-center gap-2 cursor-pointer ${
               activeTab === 'er'
-                ? 'bg-[#0D2818] text-white border-[#0D2818] font-bold shadow-xs'
-                : 'bg-white text-[#0D2818]/70 border-[#0D2818]/15 hover:bg-[#FAF7F2]'
+                ? 'bg-zinc-900 text-white border-zinc-900 font-medium shadow-xs'
+                : 'bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-50'
             }`}
           >
-            <Database className="w-3.5 h-3.5 text-[#84CC16]" />
+            <Database className="w-3.5 h-3.5 text-indigo-400" />
             <span>Entity Relationship Schema ({dbDesign?.entities?.length || 0})</span>
           </button>
           <button
+            type="button"
             onClick={() => setActiveTab('endpoints')}
-            className={`px-4 py-2 rounded-full border transition-all flex items-center gap-2 ${
+            className={`px-4 py-2 rounded-full border transition-all flex items-center gap-2 cursor-pointer ${
               activeTab === 'endpoints'
-                ? 'bg-[#0D2818] text-white border-[#0D2818] font-bold shadow-xs'
-                : 'bg-white text-[#0D2818]/70 border-[#0D2818]/15 hover:bg-[#FAF7F2]'
+                ? 'bg-zinc-900 text-white border-zinc-900 font-medium shadow-xs'
+                : 'bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-50'
             }`}
           >
-            <Code2 className="w-3.5 h-3.5 text-[#84CC16]" />
+            <Code2 className="w-3.5 h-3.5 text-indigo-400" />
             <span>REST API Endpoints ({endpoints.length})</span>
           </button>
           <button
+            type="button"
             onClick={() => setActiveTab('sql')}
-            className={`px-4 py-2 rounded-full border transition-all flex items-center gap-2 ${
+            className={`px-4 py-2 rounded-full border transition-all flex items-center gap-2 cursor-pointer ${
               activeTab === 'sql'
-                ? 'bg-[#0D2818] text-white border-[#0D2818] font-bold shadow-xs'
-                : 'bg-white text-[#0D2818]/70 border-[#0D2818]/15 hover:bg-[#FAF7F2]'
+                ? 'bg-zinc-900 text-white border-zinc-900 font-medium shadow-xs'
+                : 'bg-white text-zinc-600 border-zinc-200 hover:bg-zinc-50'
             }`}
           >
-            <Terminal className="w-3.5 h-3.5 text-[#84CC16]" />
+            <Terminal className="w-3.5 h-3.5 text-indigo-400" />
             <span>SQL Schema DDL</span>
           </button>
         </div>
@@ -212,21 +215,21 @@ export const DatabaseApiPage: React.FC = () => {
 
       {/* TAB 3: SQL DDL */}
       {activeTab === 'sql' && dbDesign?.sql_schema_ddl && (
-        <Card className="p-6 space-y-4">
+        <Card className="p-6 space-y-4 bg-white/90">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-mono text-[#0D2818]/70">
+            <span className="text-xs font-sans text-zinc-500">
               PostgreSQL ANSI SQL-99 Compatible Schema DDL
             </span>
             <Button
               size="sm"
               variant="outline"
-              icon={copiedDdl ? <Check className="w-3.5 h-3.5 text-[#84CC16]" /> : <Copy className="w-3.5 h-3.5" />}
+              icon={copiedDdl ? <Check className="w-3.5 h-3.5 text-indigo-600" /> : <Copy className="w-3.5 h-3.5" />}
               onClick={handleCopyDdl}
             >
               {copiedDdl ? 'Copied!' : 'Copy SQL DDL'}
             </Button>
           </div>
-          <div className="bg-[#0D2818] text-emerald-300 p-6 rounded-2xl font-mono text-xs overflow-x-auto shadow-inner">
+          <div className="bg-zinc-900 text-emerald-400 p-6 rounded-2xl font-mono text-xs overflow-x-auto shadow-inner">
             <pre className="leading-relaxed">{dbDesign.sql_schema_ddl}</pre>
           </div>
         </Card>
@@ -239,16 +242,16 @@ export const DatabaseApiPage: React.FC = () => {
         title="Add Custom REST API Endpoint"
         maxWidth="md"
       >
-        <form onSubmit={handleCreateEndpointSubmit} className="space-y-4 pt-2">
+        <form onSubmit={handleCreateEndpointSubmit} className="space-y-4 pt-2 font-sans">
           <div className="grid grid-cols-3 gap-3">
             <div>
-              <label className="block text-[11px] font-mono font-bold uppercase text-[#0D2818] mb-1">
+              <label className="block text-sm font-medium text-zinc-800 mb-1">
                 Method
               </label>
               <select
                 value={newMethod}
                 onChange={(e) => setNewMethod(e.target.value)}
-                className="w-full bg-[#FAF7F2] text-xs font-mono px-3 py-2 rounded-xl border border-[#0D2818]/15"
+                className="saas-input cursor-pointer font-mono"
               >
                 <option value="GET">GET</option>
                 <option value="POST">POST</option>
@@ -258,7 +261,7 @@ export const DatabaseApiPage: React.FC = () => {
               </select>
             </div>
             <div className="col-span-2">
-              <label className="block text-[11px] font-mono font-bold uppercase text-[#0D2818] mb-1">
+              <label className="block text-sm font-medium text-zinc-800 mb-1">
                 Endpoint Path *
               </label>
               <input
@@ -266,13 +269,13 @@ export const DatabaseApiPage: React.FC = () => {
                 value={newPath}
                 onChange={(e) => setNewPath(e.target.value)}
                 placeholder="/api/records"
-                className="w-full bg-[#FAF7F2] text-xs font-mono px-3 py-2 rounded-xl border border-[#0D2818]/15"
+                className="saas-input font-mono"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-[11px] font-mono font-bold uppercase text-[#0D2818] mb-1">
+            <label className="block text-sm font-medium text-zinc-800 mb-1">
               Summary / Action *
             </label>
             <input
@@ -280,13 +283,13 @@ export const DatabaseApiPage: React.FC = () => {
               value={newSummary}
               onChange={(e) => setNewSummary(e.target.value)}
               placeholder="e.g. Fetch user transactions"
-              className="w-full bg-[#FAF7F2] text-xs font-sans px-3 py-2 rounded-xl border border-[#0D2818]/15"
+              className="saas-input"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-[11px] font-mono font-bold uppercase text-[#0D2818] mb-1">
+              <label className="block text-sm font-medium text-zinc-800 mb-1">
                 Tag / Group
               </label>
               <input
@@ -294,23 +297,23 @@ export const DatabaseApiPage: React.FC = () => {
                 value={newTag}
                 onChange={(e) => setNewTag(e.target.value)}
                 placeholder="e.g. Transactions"
-                className="w-full bg-[#FAF7F2] text-xs font-sans px-3 py-2 rounded-xl border border-[#0D2818]/15"
+                className="saas-input"
               />
             </div>
             <div className="flex items-center pt-5">
-              <label className="flex items-center gap-2 text-xs font-mono text-[#0D2818] cursor-pointer">
+              <label className="flex items-center gap-2 text-sm text-zinc-700 cursor-pointer font-sans">
                 <input
                   type="checkbox"
                   checked={newAuthRequired}
                   onChange={(e) => setNewAuthRequired(e.target.checked)}
-                  className="rounded text-[#84CC16] focus:ring-[#84CC16]"
+                  className="rounded text-indigo-600 focus:ring-indigo-500"
                 />
                 Require JWT Auth
               </label>
             </div>
           </div>
 
-          <div className="flex justify-end gap-3 pt-4 border-t border-[#0D2818]/10">
+          <div className="flex justify-end gap-3 pt-4 border-t border-zinc-100">
             <Button variant="outline" size="sm" type="button" onClick={() => setAddEndpointModalOpen(false)}>
               Cancel
             </Button>

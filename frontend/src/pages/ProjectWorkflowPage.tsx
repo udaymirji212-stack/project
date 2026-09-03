@@ -69,9 +69,9 @@ export const ProjectWorkflowPage: React.FC = () => {
 
   if (isLoading && !project) {
     return (
-      <div className="min-h-screen bg-ivory-100 flex flex-col items-center justify-center space-y-4">
-        <Loader2 className="h-10 w-10 animate-spin text-forest-900" />
-        <p className="text-sm font-semibold text-forest-800">
+      <div className="min-h-screen bg-[#FAFAFA] flex flex-col items-center justify-center space-y-4 font-sans">
+        <Loader2 className="h-10 w-10 animate-spin text-indigo-600" />
+        <p className="text-sm font-medium text-zinc-600">
           Loading software engineering pipeline...
         </p>
       </div>
@@ -80,13 +80,14 @@ export const ProjectWorkflowPage: React.FC = () => {
 
   if (error || !project) {
     return (
-      <div className="min-h-screen bg-ivory-100 flex flex-col items-center justify-center space-y-4 p-4 text-center">
+      <div className="min-h-screen bg-[#FAFAFA] flex flex-col items-center justify-center space-y-4 p-4 text-center font-sans">
         <AlertCircle className="h-12 w-12 text-red-600" />
-        <h2 className="font-serif text-xl font-bold text-forest-950">Project Not Found</h2>
-        <p className="text-xs text-forest-700 max-w-sm">{error || 'Unable to locate the specified project.'}</p>
+        <h2 className="font-serif text-2xl text-zinc-900">Project Not Found</h2>
+        <p className="text-xs text-zinc-500 max-w-sm">{error || 'Unable to locate the specified project.'}</p>
         <button
+          type="button"
           onClick={() => navigate('/dashboard')}
-          className="rounded-xl bg-forest-900 px-5 py-2.5 text-xs font-bold text-lime-400 hover:bg-forest-950 transition-colors"
+          className="rounded-full bg-zinc-900 px-6 py-2.5 text-xs font-medium text-white hover:bg-black transition-colors cursor-pointer"
         >
           Return to Dashboard
         </button>
@@ -95,7 +96,7 @@ export const ProjectWorkflowPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-ivory-100 flex flex-col font-sans">
+    <div className="min-h-screen bg-[#FAFAFA] text-zinc-900 flex flex-col font-sans">
       <Navbar currentProject={project} />
 
       <div className="flex-1 flex flex-col lg:flex-row max-w-7xl w-full mx-auto">

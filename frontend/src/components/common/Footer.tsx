@@ -3,30 +3,30 @@ import { Sparkles, Shield, Cpu } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="bg-[#0D2818] text-[#FAF7F2] border-t border-[#84CC16]/20 pt-16 pb-12 transition-all">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+    <footer className="bg-white text-[#6F6F6F] border-t border-zinc-200 pt-16 pb-12 transition-all font-body">
+      <div className="max-w-7xl mx-auto px-8 space-y-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           {/* Brand Col */}
           <div className="space-y-4 md:col-span-1">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-[#84CC16] flex items-center justify-center text-[#0D2818] font-bold">
-                <Sparkles className="w-5 h-5" />
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-full bg-black flex items-center justify-center text-white">
+                <Sparkles className="w-4 h-4 text-white" />
               </div>
-              <span className="font-serif font-bold text-2xl text-white">BuildMind</span>
+              <span className="font-display text-3xl font-normal tracking-tight text-black">BuildMind</span>
             </div>
-            <p className="text-xs text-[#FAF7F2]/70 leading-relaxed font-sans">
+            <p className="text-xs text-[#6F6F6F] leading-relaxed font-body">
               Transforming software business requirements and ideas into validated, production-ready full-stack software architectures and codebases.
             </p>
-            <div className="flex items-center gap-2 text-xs font-mono text-[#84CC16]">
-              <span className="w-2 h-2 rounded-full bg-[#84CC16] animate-pulse" />
+            <div className="flex items-center gap-2 text-xs font-mono text-black font-medium">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               System Status: Operational
             </div>
           </div>
 
           {/* Workflow Links */}
           <div className="space-y-3">
-            <h4 className="font-mono text-xs uppercase tracking-widest text-[#84CC16]">Workflow Pipeline</h4>
-            <ul className="space-y-2 text-xs text-[#FAF7F2]/80">
+            <h4 className="font-body text-xs uppercase tracking-widest text-black font-semibold">Workflow Pipeline</h4>
+            <ul className="space-y-2 text-xs text-[#6F6F6F]">
               <li>1. Requirements Analysis</li>
               <li>2. IEEE 830 SRS Specification</li>
               <li>3. Micro-modular Architecture</li>
@@ -38,22 +38,22 @@ export const Footer: React.FC = () => {
 
           {/* Technology Standards */}
           <div className="space-y-3">
-            <h4 className="font-mono text-xs uppercase tracking-widest text-[#84CC16]">Tech Standards</h4>
-            <ul className="space-y-2 text-xs text-[#FAF7F2]/80">
+            <h4 className="font-body text-xs uppercase tracking-widest text-black font-semibold">Tech Standards</h4>
+            <ul className="space-y-2 text-xs text-[#6F6F6F]">
               <li className="flex items-center gap-1.5">
-                <Cpu className="w-3.5 h-3.5 text-[#84CC16]" />
+                <Cpu className="w-3.5 h-3.5 text-black" />
                 FastAPI & Python 3.12+
               </li>
               <li className="flex items-center gap-1.5">
-                <Cpu className="w-3.5 h-3.5 text-[#84CC16]" />
-                React 18 & TypeScript
+                <Cpu className="w-3.5 h-3.5 text-black" />
+                React 19 & TypeScript
               </li>
               <li className="flex items-center gap-1.5">
-                <Shield className="w-3.5 h-3.5 text-[#84CC16]" />
+                <Shield className="w-3.5 h-3.5 text-black" />
                 PostgreSQL 16 & ACID Isolation
               </li>
               <li className="flex items-center gap-1.5">
-                <Shield className="w-3.5 h-3.5 text-[#84CC16]" />
+                <Shield className="w-3.5 h-3.5 text-black" />
                 JWT Access & Refresh Token Rotation
               </li>
             </ul>
@@ -61,12 +61,12 @@ export const Footer: React.FC = () => {
 
           {/* Enterprise & Security */}
           <div className="space-y-3">
-            <h4 className="font-mono text-xs uppercase tracking-widest text-[#84CC16]">Security & Privacy</h4>
-            <p className="text-xs text-[#FAF7F2]/70 leading-relaxed">
+            <h4 className="font-body text-xs uppercase tracking-widest text-black font-semibold">Security & Privacy</h4>
+            <p className="text-xs text-[#6F6F6F] leading-relaxed">
               Zero hardcoded secrets, strict OWASP compliance, automated code quality auditing, and sanitized zero-leak ZIP exports.
             </p>
             <div className="pt-2">
-              <span className="text-[11px] font-mono px-2.5 py-1 rounded-full bg-white/10 text-white/90 border border-white/10">
+              <span className="text-[11px] font-mono px-2.5 py-1 rounded-full bg-zinc-100 text-black border border-zinc-200">
                 Argon2 & Bcrypt Protected
               </span>
             </div>
@@ -74,7 +74,7 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-white/10 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-[#FAF7F2]/60 gap-4">
+        <div className="border-t border-zinc-100 pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-zinc-400 gap-4">
           <p>© 2026 BuildMind AI Platform. All rights reserved.</p>
           <div className="flex items-center gap-6">
             <span>Production Architecture Engine</span>
