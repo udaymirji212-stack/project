@@ -10,6 +10,7 @@ class ZipExportService:
     def create_project_zip(project_name: str, files: List[GeneratedFile], docs: List[DocumentationItem]) -> io.BytesIO:
         zip_buffer = io.BytesIO()
         sanitized_folder = project_name.lower().replace(" ", "-").replace("/", "-")
+        written_paths = set()
 
         with zipfile.ZipFile(zip_buffer, "w", zipfile.ZIP_DEFLATED) as zip_file:
             # 1. Add all generated source code and configuration files
@@ -19,7 +20,9 @@ class ZipExportService:
                     continue
                 
                 archive_path = f"{sanitized_folder}/{f.path.lstrip('/')}"
-                zip_file.writestr(archive_path, f.content)
+                if archive_path not in written_paths:
+                    zip_file.writestr(archive_path, f.content)
+                    written_paths.add(archive_path)
 
             # 2. Add all documentation files
             for d in docs:
@@ -31,7 +34,9 @@ class ZipExportService:
                 if d.doc_type.lower() == "readme":
                     doc_path = f"{sanitized_folder}/README.md"
                 
-                zip_file.writestr(doc_path, d.markdown_content)
+                if doc_path not in written_paths:
+                    zip_file.writestr(doc_path, d.markdown_content)
+                    written_paths.add(doc_path)
 
         zip_buffer.seek(0)
         return zip_buffer

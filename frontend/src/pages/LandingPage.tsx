@@ -21,55 +21,15 @@ export const LandingPage: React.FC = () => {
 
   useEffect(() => {
     const video = videoRef.current;
-
     if (!video) return;
 
-    let animationFrameId: number;
-    let restartTimer: ReturnType<typeof setTimeout>;
-
-    const updateVideoOpacity = () => {
-      if (video.duration && Number.isFinite(video.duration)) {
-        const currentTime = video.currentTime;
-        const duration = video.duration;
-        const fadeDuration = 0.5;
-
-        if (currentTime <= fadeDuration) {
-          video.style.opacity = String(currentTime / fadeDuration);
-        } else if (currentTime >= duration - fadeDuration) {
-          video.style.opacity = String(
-            Math.max(0, (duration - currentTime) / fadeDuration)
-          );
-        } else {
-          video.style.opacity = "1";
-        }
-      }
-
-      animationFrameId = requestAnimationFrame(updateVideoOpacity);
-    };
-
-    const restartVideo = () => {
-      video.style.opacity = "0";
-
-      restartTimer = setTimeout(() => {
-        video.currentTime = 0;
-        video.play().catch(() => {
-          // Autoplay may be delayed by the browser.
-        });
-      }, 100);
-    };
-
-    video.addEventListener("ended", restartVideo);
-    animationFrameId = requestAnimationFrame(updateVideoOpacity);
-
-    video.play().catch(() => {
-      // Autoplay may be delayed by the browser.
-    });
-
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-      clearTimeout(restartTimer);
-      video.removeEventListener("ended", restartVideo);
-    };
+    video.muted = true;
+    const playPromise = video.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // Autoplay policy fallback
+      });
+    }
   }, []);
 
   return (
@@ -80,20 +40,21 @@ export const LandingPage: React.FC = () => {
         <video
           ref={videoRef}
           autoPlay
+          loop
           muted
           playsInline
           preload="auto"
-          onEnded={() => undefined}
-          className="absolute inset-0 h-full w-full object-cover opacity-0 z-0"
+          className="absolute inset-0 h-full w-full object-cover z-0 pointer-events-none opacity-85 transition-opacity duration-700"
         >
+          <source src="/hero-bg.mp4" type="video/mp4" />
           <source
             src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260319_015952_e1deeb12-8fb7-4071-a42a-60779fc64ab6.mp4"
             type="video/mp4"
           />
         </video>
 
-        {/* Video Gradient Overlay for seamless blend and high contrast */}
-        <div className="absolute inset-0 bg-gradient-to-b from-white via-white/50 to-white pointer-events-none z-0" />
+        {/* Video Gradient Overlay for high text legibility while keeping video clearly visible */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/20 via-transparent to-white pointer-events-none z-0" />
 
         {/* Hero Content */}
         <div

@@ -76,10 +76,10 @@ export default function App() {
         <AuthProvider>
           <BrowserRouter>
             <Routes>
+              <Route path="/" element={<LandingPage />} />
               {/* Main Layout wrapper */}
               <Route element={<AppLayout />}>
                 {/* Public Routes */}
-                <Route path="/" element={<LandingPage />} />
                 <Route
                   path="/login"
                   element={
